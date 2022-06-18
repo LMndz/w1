@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+</head>
+<body>
+
+    <h1>Factura</h1>
+    <hr />
+
+    <main>
+        <section class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Cabecera de factura</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div>
+                                <label for="">Número de factura</label>
+                                <input id="numfac" type="number">
+                            </div>
+                            <div>
+                                <label for="">Fecha</label>
+                                <input id="fecha" type="date">
+                            </div>
+                            <div>
+                                <label for="">Empleado</label>
+                                <input id="empleado" type="text">
+                            </div>
+                            <div>
+                                <label for="">Cliente</label>
+                                <input id="cliente" type="text">
+                            </div>
+                            <div>
+                                <label for="">Subtotal</label>
+                                <input id="subtotal" type="number">
+                            </div>
+                            <div>
+                                <label for="">IVA</label>
+                                <select id="Select">
+                                    <option selected value = "1"> Si </option>
+                                    <option value = "2"> No </option>
+                                </select>
+                            <div>
+                                <label for="">Descuento</label>
+                                <input id="descuento" type="number">
+                            </div>
+                            <div>
+                                <label for="">Total</label>
+                                <p id="total1"></p>
+                            </div>
+                            <div>
+                                <label for="">Productos</label>
+                                <input id="productos" type="Number">
+                            </div>
+                            <div>
+                                <label for="">Formas de pago</label>
+                                <input id="formasdepago" type="text">
+                            </div>
+                            
+                        <button type="button" onclick="iva()">Detalles de productos</button>
+
+                        </form>
+                        <hr />
+                        <form id="detalles" style="display : none;" >
+                            <div>
+                                <label for="">Producto</label>
+                                <input id="producto" type="text">
+                            </div>
+                            <div>
+                                <label for="">Cantidad</label>
+                                <input id="cantidad" type="Number">
+                            </div>
+                            <div>
+                                <label for="">Precio</label>
+                                <input id="precio" type="Number">
+                            </div>
+                            <div>
+                                <label for="">Subtotal</label>
+                                <input id="subtotal" type="Number">
+                            </div>
+                            <div id="iva" style="display : none;" class = "contenedor">
+                                <label for="">IVA</label>
+                                <input id="Tiva" type="number">
+                            </div>
+                            <div>
+                                <label for="">Total</label>
+                                <p id="total"></p>
+                            </div>
+                            
+                        <button type="button" onclick="calcular()">Calcular</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+   </main>
+</body>
+
+<script>
+
+    
+    function iva()
+    {
+        document.getElementById("detalles").style = "display: block;";
+        var i = document.getElementById("Select").value;
+       (parseInt(i) == 1)? document.getElementById("iva").style = "display: block;" : document.getElementById("iva").style = "display: none;";
+        
+    };
+    
+
+    function calcular()
+    {
+
+        var cantidad = document.getElementById("cantidad").value;
+        var precio = document.getElementById("precio").value;
+        var iva = document.getElementById("Tiva").value;
+
+        document.getElementById("total").innerHTML = "";
+        document.getElementById("total1").innerHTML = "";
+        var i = document.getElementById("Select").value;
+
+        if(parseInt(i) === 1 ) 
+        {//si hay iva
+            var total = "Precio del producto: " + precio + "$" + '   |   '
+            + "Cantidad a llevar: " + cantidad + '   |   ' 
+            + "IVA: " + iva+"%" + '   |   ' 
+            + "Valor total de la compra: " + (cantidad*precio*iva/100 + cantidad*precio)+"$";
+            document.getElementById("total").innerHTML = total;
+            document.getElementById("total1").innerHTML = total;
+        }
+        else
+        {
+            var total = "Precio del producto: " + precio + "$" + '   |   '
+            + "Cantidad a llevar: " + cantidad + '   |   ' 
+            + "IVA: " + "No aplica" + '   |   ' 
+            + "Valor total de la compra: " + (cantidad*precio)+"$";
+            document.getElementById("total").innerHTML = total;
+            document.getElementById("total1").innerHTML = total;
+        }
+    }
+    
+</script>
